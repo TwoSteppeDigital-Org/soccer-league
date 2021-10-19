@@ -20,6 +20,32 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+
+    <v-navigation-drawer v-model="drawer" absolute temporary color="primary">
+      <v-list dense>
+        <v-list-item-content>
+
+          <v-list-item>
+            <v-list-item-title class="title">
+              <router-link class="white--text" to="/">Home</router-link>
+            </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title class="title">
+              <router-link class="white--text" to="/live">Live</router-link>
+            </v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-title class="title">
+              <router-link class="white--text" to="/myteams">My Teams</router-link>
+            </v-list-item-title>
+          </v-list-item>
+
+        </v-list-item-content>
+      </v-list>
+    </v-navigation-drawer>
   </div>
 </template>
 
