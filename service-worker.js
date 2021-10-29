@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/soccer-league/precache-manifest.049bbad63f94535a0635b1503f7ce912.js"
+  "/twosteppedigital-org.github.io/soccer-league/precache-manifest.dc5ef4a1397a14c2b2a4eddb02369671.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "soccer-league"});
