@@ -3,11 +3,11 @@
   <v-app id="app">
     <Menu />
     <!-- MAIN CONTENT -->
-    <v-content>
+    <v-main>
       <v-container>
         <router-view />
       </v-container>
-    </v-content>
+    </v-main>
     <!--- FOOTER-->
     <v-footer color="purple">
       <p class="white--text text-center">Copyright &copy; 2021 foot-stats.netlify.com all right reserved. All informations showing

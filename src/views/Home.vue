@@ -1,11 +1,24 @@
 <template>
   <div id="home">
-    <h1>This is home page</h1>
+    <Card v-bind:data="competitionList" v-if="competitionList" />
   </div>
 </template>
 
 <script>
+  import Card from '@/components/Card';
+  import { mapState } from 'vuex';
   export default {
-    name: 'home'
+    name: 'home',
+    components: {
+      Card,
+    },
+    mounted() {
+      this.$store.dispatch('loadCompetitionList');
+    },
+    computed: {
+      ...mapState([
+        'competitionList',
+      ])
+    },
   }
 </script>
