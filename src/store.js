@@ -21,6 +21,7 @@ export default new Vuex.Store({
       })
       .then(response => (this.competitionList = response.data.competitions.filter((item) => {
         return item.plan == 'TIER_ONE'
+        // return item;
       })))
       .then(competitionList => {
         this.commit('SET_COMPETITION_LIST', competitionList);
