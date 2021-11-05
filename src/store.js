@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     competitionList: null,
     currentCompetition: null,
+    todaysMatches: '',
   },
 
   actions: {
@@ -42,6 +43,20 @@ export default new Vuex.Store({
         .then(response => this.competitionCode = response.data)
         .catch(response => (this.competitionCode = response.data))
     },
+    loadTodaysMatches: function () {
+      axios({
+        headers: {
+          'X-Auth-Token': 'e9c6e436a05442488ce54e147180c5c7'
+        },
+        method: 'get',
+        url: `https://api.football-data.org/v2/matches`,
+      })
+      .then(response => (this.todaysMatches = response.data.matches))
+      .then(todaysMatches => {
+        this.commit('SET_TODAY_MATCHES_LIST', todaysMatches);
+      })
+      .catch(response => (this.todaysMatches = response))
+    },
   },
   mutations: {
     SET_COMPETITION_LIST(state, data) {
@@ -49,7 +64,10 @@ export default new Vuex.Store({
     },
     SET_CURRENT_COMPETITION(state, data) {
       state.currentCompetition = data;
-    }
+    },
+    SET_TODAY_MATCHES_LIST(state, data) {
+      state.todaysMatches = data;
+    },
   },
   getters: {
     currentCompetition: state => state.currentCompetition
