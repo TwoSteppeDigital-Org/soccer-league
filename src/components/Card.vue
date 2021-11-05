@@ -9,8 +9,8 @@
               <v-card-text>{{competitionItem.area.name}}</v-card-text>
             </v-col>
             <v-col cols="12" sm="4">
-              <v-img class="flag" :aspect-ratio="16/9" :width="width" :src="competitionItem.area.ensignUrl"></v-img>
-            </v-col>          
+              <v-img class="flag" :aspect-ratio="16/9" :src="competitionItem.area.ensignUrl"></v-img>
+            </v-col>
           </v-row>
         </v-card>
       </v-flex>
