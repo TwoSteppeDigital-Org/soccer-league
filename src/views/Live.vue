@@ -4,17 +4,25 @@
       <v-layout row justify-center>
         <v-flex xs12 sm6 md4 v-for="item in todaysMatches" :key="item.id">
           <v-card id="live-match" class="text-center" v-on:click="$store.commit('SET_CURRENT_COMPETITION', competitionItem.code)">
-            <h2>Competition Name</h2>
-            <p>
-              <span class="score-text">Home_Team_Name</span>
-              <span class="score-number">Home_Team_Score</span>
-              x
-              <span class="score-number">Away_Team_Score</span>
-              <span class="score-text">Away_Team_Name</span>
-            </p>
-            <h4>Date</h4>
+            <v-row no-gutters>
+              <v-col cols="12" sm="8"><h2 class="club-title">{{item.competition.name}}</h2></v-col>
+              <v-col cols="12" sm="4"><v-img class="flag" :src="item.competition.area.ensignUrl" /></v-col>
+              <v-col cols="12" sm="6">
+                <h4 class="score-text">{{item.homeTeam.name}}</h4>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <h4 class="score-text">{{item.awayTeam.name}}</h4>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <h4 class="score-text">{{item.score.fullTime.homeTeam}}</h4>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <h4 class="score-text">{{item.score.fullTime.awayTeam}}</h4>
+              </v-col>
+            </v-row>
+            <h4 v-html="toUserDate(item.utcDate)"></h4>
             <h4 class="status">
-              <p>Status</p>
+              <p v-bind:class="matchStatus(item.status)">{{item.status}}</p>
             </h4>
           </v-card>
         </v-flex>
@@ -27,13 +35,39 @@
 import { mapState } from 'vuex';
 export default {
   name: 'live',
+  mounted() {
+    this.$store.dispatch('loadTodaysMatches');
+  },
   computed: {
     ...mapState([
       'todaysMatches',
     ])
   },
   methods: {
-    
+    toUserDate(utc) {
+      const d = new Date(utc);
+      return d.toLocaleString();
+    },
+    filterTeamName: function (raw) {
+      //Regex to remove number and all two words in uppercase
+      let filteredName = raw.replace(/[0-9]/g, '').replace(/\w*[A-Z]\w*[A-Z]\w*/g, '');
+      raw = filteredName;
+      return raw;
+    },
+    matchStatus: function(status) {
+      switch (status) {
+        case 'IN_PLAY':
+          return 'live';
+        case 'PAUSED':
+          return 'live';
+        case 'SCHEDULED':
+          return 'scheduled';
+        case 'FINISHED':
+          return 'finished';
+        default:
+          return 'none';
+      }
+    }
   },
 }
 </script>
@@ -44,10 +78,32 @@ export default {
     to {opacity: 0;}
   }
 
+  @mixin statusColor($color) {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: $color;
+    display: inline-block;
+    text-align: center;
+    border-radius: 5px;
+    margin: auto 10px auto 0;
+  }
+
+  .club-title {
+    margin-top: 20px;
+  }
+
+  .flag {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   #live-match {
     .score {
       &-text {
-        text-transform: uppercase;
+        text-transform: capitalize;
+        vertical-align: middle;
       }
 
       &-number {
@@ -56,7 +112,22 @@ export default {
     }
 
     .status {
-
+      .finished {
+        &:before {
+          @include statusColor(red);
+        }
+      }
+      .live {
+        &:before {
+          @include statusColor(green);
+          animation: fade 1s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+        }
+      }
+      .scheduled {
+        &:before {
+          @include statusColor(orange);
+        }
+      }
     }
   }
 </style>

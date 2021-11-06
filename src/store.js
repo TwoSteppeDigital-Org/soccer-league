@@ -8,7 +8,8 @@ export default new Vuex.Store({
   state: {
     competitionList: null,
     currentCompetition: null,
-    todaysMatches: '',    
+    todaysMatches: '',
+    competitionCode: '',
   },
   /** Actions -> It´s to commit mutations
    * [commit] serve to change state data
@@ -47,7 +48,7 @@ export default new Vuex.Store({
         .then(response => this.competitionCode = response.data)
         .catch(response => (this.competitionCode = response.data))
     },
-    loadTodaysMatchs: function () {
+    loadTodaysMatches: function () {
       axios({
           headers: {
             'X-Auth-Token': 'e9c6e436a05442488ce54e147180c5c7'
