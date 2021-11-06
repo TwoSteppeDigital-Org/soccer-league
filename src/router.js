@@ -10,6 +10,11 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/live',
+      name: 'live',
+      component: () => import('./views/Live.vue')
     }
   ]
 })
