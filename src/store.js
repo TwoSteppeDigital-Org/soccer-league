@@ -1,37 +1,41 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import axios from 'axios';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import axios from 'axios'
 
-Vue.use(Vuex);
+Vue.use(Vuex, axios)
 
 export default new Vuex.Store({
   state: {
     competitionList: null,
     currentCompetition: null,
-    todaysMatches: '',
+    todaysMatches: '',    
   },
-
+  /** Actions -> It´s to commit mutations
+   * [commit] serve to change state data
+   */
   actions: {
-    loadCompetitionList: function() {
+    /** Get all competition List Avaliable */
+    loadCompetitionList: function () {
       axios({
-        headers: {
-          'X-Auth-Token': 'e9c6e436a05442488ce54e147180c5c7'
-        },
-        method: 'get',
-        url: 'https://api.football-data.org/v2/competitions',
-      })
-      .then(response => (this.competitionList = response.data.competitions.filter((item) => {
-        return item.plan == 'TIER_ONE'
-        // return item;
-      })))
-      .then(competitionList => {
-        this.commit('SET_COMPETITION_LIST', competitionList);
-      })
-      .catch(response => (this.competitionList = response))
+          headers: {
+            'X-Auth-Token': 'e9c6e436a05442488ce54e147180c5c7'
+          },
+          method: 'get',
+          url: 'https://api.football-data.org/v2/competitions',
+        })
+        .then(response => (this.competitionList = response.data.competitions.filter((item) => {
+            return item.plan == 'TIER_ONE'
+          })))
+        .then(competitionList => {
+          this.commit('SET_COMPETITION_LIST', competitionList);
+        })
+        .catch(response => (this.competitionList = response))
     },
+    /** On Click Save the current League that user click */
     setCurrentCompetition: payload => {
       this.commit('SET_COMPETITION_LIST', payload);
     },
+    /** When a user select a specific league return the data of this specific league */
     loadSelectedCompetition: code => {
       axios({
           headers: {
@@ -43,21 +47,22 @@ export default new Vuex.Store({
         .then(response => this.competitionCode = response.data)
         .catch(response => (this.competitionCode = response.data))
     },
-    loadTodaysMatches: function () {
+    loadTodaysMatchs: function () {
       axios({
-        headers: {
-          'X-Auth-Token': 'e9c6e436a05442488ce54e147180c5c7'
-        },
-        method: 'get',
-        url: `https://api.football-data.org/v2/matches`,
-      })
-      .then(response => (this.todaysMatches = response.data.matches))
-      .then(todaysMatches => {
-        this.commit('SET_TODAY_MATCHES_LIST', todaysMatches);
-      })
-      .catch(response => (this.todaysMatches = response))
+          headers: {
+            'X-Auth-Token': 'e9c6e436a05442488ce54e147180c5c7'
+          },
+          method: 'get',
+          url: 'https://api.football-data.org/v2/matches',
+        })
+        .then(response => (this.todaysMatches = response.data.matches))
+        .then(todaysMatches => {
+          this.commit('SET_TODAY_MATCHES_LIST', todaysMatches);
+        })
+        .catch(response => (this.todaysMatches = response))
     },
   },
+  /** Mutations -> It´s to manipulate state */
   mutations: {
     SET_COMPETITION_LIST(state, data) {
       state.competitionList = data;
@@ -69,7 +74,8 @@ export default new Vuex.Store({
       state.todaysMatches = data;
     },
   },
+  /** Getters -> It´s to watch the state */
   getters: {
     currentCompetition: state => state.currentCompetition
-  }
+  },
 })

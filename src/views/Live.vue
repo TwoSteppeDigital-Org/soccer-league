@@ -32,6 +32,9 @@ export default {
       'todaysMatches',
     ])
   },
+  methods: {
+    
+  },
 }
 </script>
 
