@@ -36,6 +36,14 @@
               <td>
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
+                    <span v-on="on" class="md-pa-2 xs-pl-2 mx-auto header ">F</span>
+                  </template>        
+                  <span>Club Flag</span>
+                </v-tooltip>
+              </td>
+              <td>
+                <v-tooltip top>
+                  <template v-slot:activator="{ on }">
                     <span v-on="on" class="md-pa-2 xs-pl-2 mx-auto header stats-num">P</span>
                   </template>        
                   <span>Points</span>
@@ -75,6 +83,18 @@
               </td>
             </tr>
           </thead>
+          <tbody>
+            <tr v-for="data in teamTables" :key="data.code">
+              <td class="pa-2 teams stats-num">{{data.position}}</td>
+              <td class="pa-2 teams stats-word">{{data.team.name}}</td>
+              <td class="pa-2 teams stats-num"><v-img class="club-flag" :src="data.team.crestUrl" alt="club name"></v-img></td>
+              <td class="pa-2 teams stats-num">{{data.points}}</td>
+              <td class="pa-2 teams stats-num">{{data.playedGames}}</td>
+              <td class="pa-2 teams stats-num">{{data.won}}</td>
+              <td class="pa-2 teams stats-num">{{data.draw}}</td>
+              <td class="pa-2 teams stats-num">{{data.lost}}</td>
+            </tr>
+          </tbody>
         </v-simple-table>
       </v-card>
     </div>
@@ -122,19 +142,47 @@ import axios from 'axios';
       ...mapState([
         'competitionList',
       ]),
-    }
+      teamTables: function() {
+        const rawItems = this.league.standings[0].table;
+
+        rawItems.forEach(element => {
+          let filteredName = element.team.name.replace(/[0-9]/g, '').replace(/\w*[A-Z]\w*[A-Z]\w*/g, '');
+          element.team.name = filteredName;
+        });
+        return rawItems;
+        // eslint-disable-next-line
+        console.log(rawItems, 'rawItems')
+      }
+    },
   }
 </script>
 
 <style lang="scss" scoped>
 #league-table {
   td {
-    text-transform: uppercase;
+    text-transform: capitalize;
     text-align: center;
   }
 
   .header {
     font-weight: 700;
+  }
+
+  .club-flag {
+    width: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stats-word {
+    text-align: left;
+  }
+
+  @media (max-width: 600px) {
+    .stats-word {
+      overflow: hidden;
+      white-space: nowrap;
+    }
   }
 }
 </style>
