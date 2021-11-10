@@ -15,6 +15,11 @@ export default new Router({
       path: '/live',
       name: 'live',
       component: () => import('./views/Live.vue')
-    }
+    },
+    {
+      path: '/myteams',
+      name: 'MyTeams',
+      component: () => import('./views/MyTeams.vue')
+    },
   ]
 })
