@@ -105,7 +105,7 @@
 import { mapState } from 'vuex';
 import axios from 'axios';
   export default {
-    name: 'MyTeams',
+    name: 'myteams',
     data() {
       return {
         selectedLeagueId: '',
