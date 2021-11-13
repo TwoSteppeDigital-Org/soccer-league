@@ -21,5 +21,10 @@ export default new Router({
       name: 'myteams',
       component: () => import('./views/MyTeams.vue')
     },
+    {
+      path: '/competition/:competitionName',
+      name: 'competitionDetails',
+      component: () => import('./views/CompetitionDetails.vue')
+    },
   ]
 })
