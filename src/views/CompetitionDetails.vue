@@ -9,7 +9,7 @@ import { mapState } from 'vuex';
   export default {
     name: 'competitionDetails',
     mounted() {
-      this.$store.dispatch('loadSelectedCompetition');
+      this.$store.dispatch('loadSelectedCompetition', this.currentCompetition.code);
     },
     computed: {
       ...mapState([
