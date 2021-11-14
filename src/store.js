@@ -25,8 +25,7 @@ export default new Vuex.Store({
         url: 'https://api.football-data.org/v2/competitions',
       })
       .then(response => (this.competitionList = response.data.competitions.filter((item) => {
-          // return item.plan == 'TIER_ONE'
-          return item.plan
+          return item.plan == 'TIER_ONE'
         })))
       .then(competitionList => {
         this.commit('SET_COMPETITION_LIST', competitionList);
