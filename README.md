@@ -1,24 +1,66 @@
-# soccer-league
+# FootieStats vue.js
+
+## Table of Contents
+
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [Roadmap](#roadmap)
+* [Acknowledgements](#acknowledgements)
+
+
+FootieStats have the proporse to show some info using [football-data.org](https://www.football-data.org). This project is for personal use and aims to study Vue.js, Vuex, Vue Router and other technologies.
+You can see this application live on [foot-stats.netlify.com](https://foot-stats.netlify.com).
 
 ## Project setup
 ```
-yarn install
+npm install
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+npm run build
+```
+
+###[Preview build for production](https://cli.vuejs.org/guide/deployment.html#general-guidelines " Preview build for production")
+```
+serve -s dist
+```
+
+### Run your tests
+```
+npm run test
 ```
 
 ### Lints and fixes files
 ```
-yarn lint
+npm run lint
 ```
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### External Libraries
+[Vue.js](https://vuejs.org/)
+[Axios](https://github.com/axios/axios)
+[football-data.org](https://www.football-data.org)
+[Vuetify](https://vuetifyjs.com/)
+
+### Todo List
+
+####v1.0.0
+- Create design (Based on [Goal.com](Goal.com))
+- Development design [CSS Modules ? or other CSS organization]
+- Improve accessibility
+- Implement PWA
+- publish in github pages
+
+AND MORE!
